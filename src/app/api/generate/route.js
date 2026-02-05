@@ -45,7 +45,11 @@ export async function POST(request) {
     } catch (error) {
         console.error("API Error:", error);
         return NextResponse.json(
-            { error: "Internal Server Error" },
+            {
+                error: "블로그 생성 중 오류가 발생했습니다.",
+                details: error.message,
+                stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+            },
             { status: 500 }
         );
     }

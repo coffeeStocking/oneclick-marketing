@@ -63,7 +63,8 @@ export default function Home() {
       if (response.ok) {
         setResult(data.text);
       } else {
-        alert("생성 중 오류가 발생했습니다: " + (data.error || "Unknown error"));
+        const errorMessage = data.details ? `${data.error}\n(상세: ${data.details})` : data.error || "Unknown error";
+        alert("생성 중 오류가 발생했습니다: " + errorMessage);
       }
     } catch (error) {
       console.error("Error:", error);
