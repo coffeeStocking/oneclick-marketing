@@ -91,9 +91,17 @@ export default function ImageUploader({ onImagesSelected }) {
                     accept="image/*"
                     onChange={handleFileChange}
                 />
-                <p>{images.length < 10 ? "이미지를 드래그하거나 클릭하여 업로드하세요" : "최대 업로드 개수에 도달했습니다"}</p>
-                <div style={{ fontSize: "0.8rem", color: "var(--muted-foreground)" }}>
-                    {images.length} / 10 장
+                <div className="uploader-content">
+                    <div className="upload-icon">📸</div>
+                    <p className="main-text">
+                        {images.length < 10 ? "탭하여 사진 촬영 또는 앨범에서 선택" : "최대 업로드 개수에 도달했습니다"}
+                    </p>
+                    <p className="sub-text">
+                        {images.length < 10 ? "이미지를 여기로 드래그할 수도 있습니다" : ""}
+                    </p>
+                    <div className="upload-stats">
+                        {images.length} / 10 장
+                    </div>
                 </div>
             </div>
 
