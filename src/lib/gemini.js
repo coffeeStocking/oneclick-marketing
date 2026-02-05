@@ -8,9 +8,9 @@ export async function generateBlogContent(imageParts, prompt) {
   }
 
   try {
-    // 최신 Gemini 2.5 Flash 모델을 사용하여 더 품질 높은 마케팅 콘텐츠를 생성합니다.
+    // 가장 최신 모델인 Gemini 3 Flash Preview를 사용하여 압도적인 퀄리티의 콘텐츠를 생성합니다.
     const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
 
     const generatedContent = await model.generateContent([
       prompt,
