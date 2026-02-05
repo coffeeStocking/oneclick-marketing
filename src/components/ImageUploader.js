@@ -74,6 +74,11 @@ export default function ImageUploader({ onImagesSelected }) {
         onImagesSelected(updatedImages);
     };
 
+    const clearAll = () => {
+        setImages([]);
+        onImagesSelected([]);
+    };
+
     return (
         <div className="uploader-container">
             <div
@@ -106,21 +111,29 @@ export default function ImageUploader({ onImagesSelected }) {
             </div>
 
             {images.length > 0 && (
-                <div className="preview-grid">
-                    {images.map((img, idx) => (
-                        <div key={idx} className="preview-item">
-                            <img src={img.preview} alt={`Upload ${idx}`} />
-                            <button
-                                className="remove-btn"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    removeImage(idx);
-                                }}
-                            >
-                                ×
-                            </button>
-                        </div>
-                    ))}
+                <div className="preview-container">
+                    <div className="preview-header">
+                        <h3>업로드된 사진 ({images.length}장)</h3>
+                        <button className="clear-all-btn" onClick={clearAll}>
+                            전체 삭제 🗑️
+                        </button>
+                    </div>
+                    <div className="preview-grid">
+                        {images.map((img, idx) => (
+                            <div key={idx} className="preview-item">
+                                <img src={img.preview} alt={`Upload ${idx}`} />
+                                <button
+                                    className="remove-btn"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        removeImage(idx);
+                                    }}
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             )}
         </div>
