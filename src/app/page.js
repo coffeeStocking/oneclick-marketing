@@ -7,7 +7,7 @@ import { createCollage } from "../utils/imageProcessor";
 export default function Home() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState({ blog: "", insta: "" });
   const [collage, setCollage] = useState(null);
 
   const handleImagesSelected = (images) => {
@@ -34,7 +34,7 @@ export default function Home() {
     }
 
     setLoading(true);
-    setResult("");
+    setResult({ blog: "", insta: "" });
 
     // Auto-generate collage if not present
     if (!collage) {
@@ -61,7 +61,15 @@ export default function Home() {
       const data = await response.json();
 
       if (response.ok) {
-        setResult(data.text);
+        // Parse results using delimiters
+        const text = data.text;
+        const blogMatch = text.match(/\[BLOG_CONTENT\]([\s\S]*?)(?=\[INSTA_CONTENT\]|$)/);
+        const instaMatch = text.match(/\[INSTA_CONTENT\]([\s\S]*)/);
+
+        setResult({
+          blog: blogMatch ? blogMatch[1].trim() : text,
+          insta: instaMatch ? instaMatch[1].trim() : ""
+        });
       } else {
         const errorMessage = data.details ? `${data.error}\n(상세: ${data.details})` : data.error || "Unknown error";
         alert("생성 중 오류가 발생했습니다: " + errorMessage);
@@ -72,6 +80,11 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    alert("복사되었습니다!");
   };
 
   return (
@@ -138,11 +151,29 @@ export default function Home() {
         </section>
       )}
 
-      {result && (
-        <section className="card" style={{ marginTop: "2rem", whiteSpace: "pre-wrap" }}>
-          <h2 style={{ marginBottom: "1rem", color: "var(--primary)" }}>생성된 블로그 글</h2>
-          <div style={{ lineHeight: "1.8", color: "var(--foreground)" }}>
-            {result}
+      {result.blog && (
+        <section className="card" style={{ marginTop: "2rem" }}>
+          <h2 style={{ marginBottom: "1rem", color: "var(--primary)" }}>📝 블로그 포스팅</h2>
+          <div style={{ lineHeight: "1.8", color: "var(--foreground)", whiteSpace: "pre-wrap" }}>
+            {result.blog}
+          </div>
+        </section>
+      )}
+
+      {result.insta && (
+        <section className="card" style={{ marginTop: "2rem", border: "1px solid #e1306c" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+            <h2 style={{ color: "#e1306c", margin: 0 }}>💖 인스타그램 캡션</h2>
+            <button
+              className="btn"
+              style={{ background: "#e1306c", color: "white", padding: "0.4rem 0.8rem", fontSize: "0.8rem" }}
+              onClick={() => copyToClipboard(result.insta)}
+            >
+              문구 복사하기 📋
+            </button>
+          </div>
+          <div style={{ lineHeight: "1.6", color: "var(--foreground)", whiteSpace: "pre-wrap", fontSize: "0.95rem" }}>
+            {result.insta}
           </div>
         </section>
       )}
