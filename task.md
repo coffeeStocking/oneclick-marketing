@@ -8,5 +8,5 @@
 - [x] Connect to GitHub Repository
 - [x] Push Code to GitHub
 - [x] Configure Cloudflare Pages Deployment
-- [ ] Fix Dependency Compatibility (Next.js 16 -> 14) <!-- Current Focus -->
-- [ ] Verify Deployment
+- [x] Fix Dependency Compatibility (Next.js 16 -> 14)
+- [ ] Verify Deployment <!-- Current Focus -->
