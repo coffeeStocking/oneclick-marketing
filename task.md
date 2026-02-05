@@ -2,7 +2,11 @@
 
 - [x] Project Setup & Structure
 - [x] Install Git
-- [ ] Initialize Local Git Repository <!-- Current Focus -->
-- [ ] Create GitHub Repository & Push Code
-- [ ] Configure Cloudflare Pages Deployment
+- [x] Initialize Local Git Repository
+- [x] Configure Git User Identity
+- [x] Commit Code
+- [x] Connect to GitHub Repository
+- [x] Push Code to GitHub
+- [x] Configure Cloudflare Pages Deployment
+- [ ] Fix Dependency Compatibility (Next.js 16 -> 14) <!-- Current Focus -->
 - [ ] Verify Deployment
